@@ -6,7 +6,8 @@ from typing import Optional
 from datetime import date
 
 class IntakeFormRequest(BaseModel):
-    name: str
+    first_name: str
+    last_name: str
     email: str
     phone: str
     accident_type: str
@@ -27,13 +28,14 @@ class IntakeFormRequest(BaseModel):
 
 class Intake_Form():
 
-    def __init__(self, name: str, email: str, phone: str, accident_type: str, involved_people: str, 
-                 injured: str,injury_types: str, sought_medical_care: str, filed_police_report: str,
-                 insured: str, witnesses: str, incident_date: date, incident_description: str,
-                 affordability_concerns: str, city: str, state: str, country: str,
-                 medical_costs=None):
+    def __init__(self, first_name: str, last_name: str, email: str, phone: str, accident_type: str, 
+                 involved_people: str, injured: str,injury_types: str, sought_medical_care: str, 
+                 filed_police_report: str,insured: str, witnesses: str, incident_date: date, 
+                 incident_description: str, affordability_concerns: str, city: str, state: str, 
+                 country: str, medical_costs=None):
 
-        self.name = name
+        self.first_name = first_name
+        self.last_name = last_name
         self.email = email
         self.phone = phone
         self.accident_type = accident_type
@@ -53,8 +55,12 @@ class Intake_Form():
         self.incident_description = incident_description
 
     @property
-    def get_name(self):
-        return self.name
+    def get_first_name(self):
+        return self.first_name
+
+    @property
+    def get_last_name(self):
+        return self.last_name
 
     @property
     def get_email(self):

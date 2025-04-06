@@ -47,6 +47,15 @@ def format_prompt(intake_form: utils.Intake_Form, prompt_template: str):
 
 #Makes the local LLM call 
 def summarize_intake_with_LLM(prompt: str):
+    """
+    Makes an LLM call to summarize the intake form to be ready to email.
+
+    Parameters:
+        prompt (str): Formatted prompt being used from prompts directory
+
+    Returns:
+        (str) : The LLM summarized case intake form
+    """
     try: 
         response = requests.post( "http://localhost:11434/api/generate",
             json={
@@ -58,23 +67,6 @@ def summarize_intake_with_LLM(prompt: str):
         return response.json(["response"])
     except Exception as e:
         print(f"Request Error from Local Llama model: {e}")
-
-def process_intake_form(intake_form: utils.Intake_Form):
-    """
-    Main function for processing the form. Uses LLM to take form, put it into a
-    summarized description of the case. Create case object, and then start the matching
-    """
-    #Load prompt in
-    prompt_template = load_prompt("prompt1")
-    #Format prompt
-    prompt = format_prompt(intake_form, prompt_template)
-    #Give Ollama the required data and prompt for it's output
-    response = summarize_intake_with_LLM(prompt)
-    
-
-
-    
-
 
 def match_case_with_firm(case: utils.Case):
     """
@@ -88,6 +80,28 @@ def match_case_with_firm(case: utils.Case):
     """
     return 
 
+
+def run(intake_form: utils.Intake_Form):
+    """
+    Main function for processing the form. Uses LLM to take form, put it into a
+    summarized description of the case. Create case object, and then start the matching
+    """
+    #Load prompt in
+    prompt_template = load_prompt("prompt1")
+    #Format prompt
+    prompt = format_prompt(intake_form, prompt_template)
+    #Give Ollama the required data and prompt for it's output
+    response = summarize_intake_with_LLM(prompt)
+    #Creates a new case object
+    new_case = utils.Case(intake_form.get_first_name(),
+                          intake_form.get_last_name(),
+                          intake_form.get_email(),
+                          intake_form.get_phone(),
+                          response)
+    
+    
+    
+    
 
 
     
