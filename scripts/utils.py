@@ -61,4 +61,17 @@ class Intake_Form():
     def get_story(self):
         return self.story
     
+def make_intake_form(form: IntakeFormRequest):
+    """
+    A function for processing the intake form that the user filled out on the 
+    web application
 
+    Parameters:
+        form (IntakeFormRequest): The form that needs to be converted to intake form object
+    
+    Returns:
+        intake (Intake_Form): Returns an intake form
+    """
+    intake = Intake_Form(**form.model_dump())
+    return intake
+    

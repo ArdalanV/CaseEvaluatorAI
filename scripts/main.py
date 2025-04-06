@@ -9,5 +9,5 @@ app = FastAPI()
 
 @app.post("/intake")
 def intake_endpoint(form: utils.IntakeFormRequest):
-    result = run.process_intake_form(form)
-    return result
+    intake_form = utils.make_intake_form(form)
+    processed_form = run.process_intake_form(intake_form)
