@@ -25,42 +25,28 @@ def load_prompt(prompt: str):
     except FileNotFoundError:
         print("Prompt was not found, please use valid prompt")
 
-
-def process_intake_form(intake_form: utils.Intake_Form):
-    """
-    Main function for processing the form. Uses LLM to take form, put it into a
-    summarized description of the case. Create case object, and then start the matching
-    """
-    #Load prompt in
-    prompt_template = load_prompt("prompt1")
+#Formats prompt
+def format_prompt(intake_form: utils.Intake_Form, prompt_template: str):
     prompt = prompt_template.format(
-        accident_type = intake_form.get_accident_type()
-        involved_people = involved_people
-        injured = injured
-        injury_types = injury_types
-        sought_medical_care = sought_medical_care
-        filed_police_report = filed_police_report
-        insured = insured
-        witnesses = witnesses
-        incident_date = incident_date
-        incident_description = incident_description
-        affordability_concerns = affordability_concerns
-        location = location
-        medical_costs = medical_costs
+        accident_type = intake_form.get_accident_type(),
+        involved_people = intake_form.get_involved_people(),
+        injured = intake_form.is_injured(),
+        injury_types = intake_form.get_injury_types(),
+        sought_medical_care = intake_form.has_sought_medical_care(),
+        filed_police_report = intake_form.has_filed_police_report(),
+        insured = intake_form.is_insured(),
+        witnesses = intake_form.has_witnesses(),
+        incident_date = intake_form.get_incident_date(),
+        affordability_costs = intake_form.has_affordability_concerns(),
+        city = intake_form.get_city(),
+        state = intake_form.get_state(),
+        country = intake_form.get_medical_costs(),
+        incident_description = intake_form.get_incident_description()
         )
-    #Give Ollama the required data and prompt for it's output
-    response = requests.post( "http://localhost:11434/api/generate",
-        json={
-            "model": "llama3.2",
-            "prompt": prompt,
-            "stream": False,
-            "temperature": 0
-        })
-    return 
-
+    return prompt
 
 #Makes the local LLM call 
-def summarize_intake_with_LLM(prompt: str, intake_form: utils.Intake_Form):
+def summarize_intake_with_LLM(prompt: str):
     try: 
         response = requests.post( "http://localhost:11434/api/generate",
             json={
@@ -72,6 +58,21 @@ def summarize_intake_with_LLM(prompt: str, intake_form: utils.Intake_Form):
         return response.json(["response"])
     except Exception as e:
         print(f"Request Error from Local Llama model: {e}")
+
+def process_intake_form(intake_form: utils.Intake_Form):
+    """
+    Main function for processing the form. Uses LLM to take form, put it into a
+    summarized description of the case. Create case object, and then start the matching
+    """
+    #Load prompt in
+    prompt_template = load_prompt("prompt1")
+    #Format prompt
+    prompt = format_prompt(intake_form, prompt_template)
+    #Give Ollama the required data and prompt for it's output
+    response = summarize_intake_with_LLM(prompt)
+    
+
+
     
 
 
