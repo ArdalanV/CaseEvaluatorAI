@@ -60,7 +60,8 @@ class Intake_Form():
     
     def get_story(self):
         return self.story
-    
+
+#Many fields to be added or changed
 class Case():
 
     def __init__(self, first_name: str, last_name: str, email: str, phone_num: str,
@@ -85,6 +86,24 @@ class Case():
     
     def get_case_description(self):
         return self.case_description
+
+#Many more fields to be added later
+class LawFirm():
+
+    def __init__(self, firm_name: str, location: str, size: str):
+        self.firm_name = firm_name
+        self.location = location
+        self.size = size
+
+    def get_firm_name(self):
+        return self.firm_name
+    
+    def get_self_location(self):
+        return self.location
+    
+    def get_size(self):
+        return self.size
+
     
 
     
