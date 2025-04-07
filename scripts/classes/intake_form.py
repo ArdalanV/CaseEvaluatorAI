@@ -4,17 +4,21 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from datetime import date
 
+#Check if the person was injured, to design implementation to prompt uninjured claimant's elsewhere
+
+class IntakeFormBase(BaseModel):
+    first_name: str = Field(..., min_length=2, max_length=20, description='First name of the claimant')
+    last_name: str = Field(..., min_length=2, max_length=20, description='Last name of the claimant')
+    email: str = Field(..., min_length=3, max_length=50, description='Email of the claimant')
+    phone: str = Field(..., min_length=10, max_length=10, description='Phone number of the claimant')
+    injured: str = Field(..., min_length=2, max_length=3, description='Indicator if the claimant is injured')
+
 #Intake Form Schema
-class IntakeFormRequest(BaseModel):
-    first_name: str
-    last_name: str
-    email: str
-    phone: str
-    accident_type: str
-    involved_people: str
-    injured: str
-    injury_types: str
-    sought_medical_care: str
+class IntakeFormRequest(IntakeFormBase):
+    accident_type: str = Field(..., min_length=3, max_length=100, description='The type of accident the claimant was involved in')
+    involved_people: str = Field(..., min_length=2, max_length=3, description='Indicator if there were people involved')
+    injury_types: str = Field(..., min_length=3, max_length=512, description='The type of injuries the claimant has sustained')
+    sought_medical_care: str = Field(..., min_length=2, max_length=3, description='')
     filed_police_report: str
     insured: str
     witnesses: str
