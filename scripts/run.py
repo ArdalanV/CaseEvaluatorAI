@@ -35,12 +35,12 @@ def format_prompt(intake_form: utils.Intake_Form, prompt_template: str):
         sought_medical_care = intake_form.has_sought_medical_care(),
         filed_police_report = intake_form.has_filed_police_report(),
         insured = intake_form.is_insured(),
+        insurance_coverage = intake_form.get_insurance_coverage(),
         witnesses = intake_form.has_witnesses(),
         incident_date = intake_form.get_incident_date(),
-        affordability_costs = intake_form.has_affordability_concerns(),
+        affordability_costs = intake_form.has_affordability_concerns(),  
         city = intake_form.get_city(),
         state = intake_form.get_state(),
-        country = intake_form.get_medical_costs(),
         incident_description = intake_form.get_incident_description()
         )
     return prompt
@@ -98,10 +98,4 @@ def run(intake_form: utils.Intake_Form):
                           intake_form.get_email(),
                           intake_form.get_phone(),
                           response)
-    
-    
-    
-    
-
-
     

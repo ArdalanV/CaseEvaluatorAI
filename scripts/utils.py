@@ -30,7 +30,7 @@ class Intake_Form():
 
     def __init__(self, first_name: str, last_name: str, email: str, phone: str, accident_type: str, 
                  involved_people: str, injured: str,injury_types: str, sought_medical_care: str, 
-                 filed_police_report: str,insured: str, witnesses: str, incident_date: date, 
+                 filed_police_report: str, insured: str, insurance_coverage: str, witnesses: str, incident_date: date, 
                  incident_description: str, affordability_concerns: str, city: str, state: str, 
                  country: str, medical_costs=None):
 
@@ -45,6 +45,7 @@ class Intake_Form():
         self.sought_medical_care = sought_medical_care
         self.filed_police_report = filed_police_report
         self.insured = insured 
+        self.insurance_coverage = insurance_coverage
         self.witnesses = witnesses
         self.incident_date = incident_date
         self.affordability_concerns = affordability_concerns
@@ -97,6 +98,10 @@ class Intake_Form():
     @property
     def is_insured(self):
         return self.insured
+    
+    @property
+    def get_insurance_coverage(self):
+        return self.insurance_coverage
 
     @property
     def has_witnesses(self):
