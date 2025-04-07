@@ -6,6 +6,9 @@ import os
 import openai
 import requests
 import json
+from classes import case
+from classes import law_firm    
+from classes import intake_form
 
 #Loads desired prompt from prompts directory
 def load_prompt(prompt: str):
@@ -27,7 +30,7 @@ def load_prompt(prompt: str):
         print("Prompt was not found, please use valid prompt")
 
 #Formats prompt
-def format_prompt(intake_form: utils.Intake_Form, prompt_template: str):
+def format_prompt(intake_form: intake_form.Intake_Form, prompt_template: str):
     prompt = prompt_template.format(
         accident_type = intake_form.get_accident_type(),
         involved_people = intake_form.get_involved_people(),
@@ -69,6 +72,7 @@ def summarize_intake_with_LLM(prompt: str):
     except Exception as e:
         print(f"Request Error from Local Llama model: {e}")
 
+#Gets the firm that the case will be send to
 def match_case_with_firm(case: utils.Case):
     """
     Function to match a case object with a law firm
@@ -81,7 +85,7 @@ def match_case_with_firm(case: utils.Case):
     """
     return 
 
-
+#Main functionality of the running algorithm
 def run(intake_form: utils.Intake_Form):
     """
     Main function for processing the form. Uses LLM to take form, put it into a
