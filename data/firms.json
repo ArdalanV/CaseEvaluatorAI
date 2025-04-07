@@ -1,0 +1,63 @@
+[
+    {
+      "email": "info@justiceforall.com",
+      "firm_name": "Justice For All LLP",
+      "locations": ["San Francisco, CA"],
+      "size": "large"
+    },
+    {
+      "email": "contact@smithlegal.com",
+      "firm_name": "Smith Legal Group",
+      "locations": ["San Francisco, CA"],
+      "size": "medium"
+    },
+    {
+      "email": "support@hartlaw.com",
+      "firm_name": "Hart & Associates",
+      "locations": ["San Francisco, CA"],
+      "size": "large"
+    },
+    {
+      "email": "admin@coastaldefenders.com",
+      "firm_name": "Coastal Defenders",
+      "locations": ["San Francisco, CA"],
+      "size": "small"
+    },
+    {
+      "email": "help@mountainlaw.com",
+      "firm_name": "Mountain Law Firm",
+      "locations": ["San Francisco, CA"],
+      "size": "medium"
+    },
+    {
+      "email": "team@norcalinjurylaw.com",
+      "firm_name": "NorCal Injury Law",
+      "locations": ["San Francisco, CA"],
+      "size": "medium"
+    },
+    {
+      "email": "legal@metrojustice.com",
+      "firm_name": "Metro Justice Group",
+      "locations": ["San Francisco, CA"],
+      "size": "large"
+    },
+    {
+      "email": "info@baylegalgroup.com",
+      "firm_name": "Bay Legal Group",
+      "locations": ["San Francisco, CA"],
+      "size": "small"
+    },
+    {
+      "email": "contact@desertlaw.com",
+      "firm_name": "Desert Law Partners",
+      "locations": ["San Francisco, CA"],
+      "size": "small"
+    },
+    {
+      "email": "admin@empirelaw.com",
+      "firm_name": "Empire Law Offices",
+      "locations": ["San Francisco, CA"],
+      "size": "large"
+    }
+  ]
+  

@@ -5,6 +5,7 @@ import utils
 import os
 import openai
 import requests
+import json
 
 #Loads desired prompt from prompts directory
 def load_prompt(prompt: str):
@@ -98,4 +99,7 @@ def run(intake_form: utils.Intake_Form):
                           intake_form.get_email(),
                           intake_form.get_phone(),
                           response)
+    #Get the Law Firm we matched with the case
+    firm = match_case_with_firm(new_case)
+
     
