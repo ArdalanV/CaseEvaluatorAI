@@ -10,6 +10,11 @@ from classes import case
 from classes import law_firm    
 from classes import intake_form
 
+
+#Simluated Law Firms Database
+with open(f"../data/firms.json") as f:
+    firms = json.loads(f)
+
 #Loads desired prompt from prompts directory
 def load_prompt(prompt: str):
     """
@@ -33,12 +38,12 @@ def load_prompt(prompt: str):
 def format_prompt(intake_form: intake_form.Intake_Form, prompt_template: str):
     prompt = prompt_template.format(
         accident_type = intake_form.get_accident_type(),
-        involved_people = intake_form.get_involved_people(),
-        injured = intake_form.is_injured(),
+        involved_people = intake_form.get_num_involved_people(),
+        injured = intake_form.get_is_injured(),
         injury_types = intake_form.get_injury_types(),
-        sought_medical_care = intake_form.has_sought_medical_care(),
-        filed_police_report = intake_form.has_filed_police_report(),
-        insured = intake_form.is_insured(),
+        sought_medical_care = intake_form.get_sought_medical_care(),
+        filed_police_report = intake_form.get_filed_police_report,
+        insured = intake_form.get_is_insured(),
         insurance_coverage = intake_form.get_insurance_coverage(),
         witnesses = intake_form.has_witnesses(),
         incident_date = intake_form.get_incident_date(),

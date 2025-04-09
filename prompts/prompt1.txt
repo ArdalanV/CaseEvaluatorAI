@@ -3,7 +3,7 @@ You will be given the attributes of an intake form:
 
 -{accident_type} Type or category of the incident.
 
--{involved_people} Number of people involved (excluding claimant).
+-{num_involved_people} Number of people involved (excluding claimant).
 
 -{injured} Indicates if injuries occurred.
 
