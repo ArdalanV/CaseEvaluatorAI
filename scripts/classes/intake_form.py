@@ -1,6 +1,6 @@
 from typing import List, Optional
 from enum import IntEnum
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 from datetime import date
 
@@ -15,6 +15,7 @@ from datetime import date
 
 #Intake Form Schema
 class IntakeFormRequest(BaseModel):
+
     first_name: str = Field(..., min_length=2, max_length=20, description='First name of the claimant')
     last_name: str = Field(..., min_length=2, max_length=20, description='Last name of the claimant')
     email: str = Field(..., min_length=3, max_length=50, description='Email of the claimant')
@@ -34,6 +35,18 @@ class IntakeFormRequest(BaseModel):
     state: str = Field(..., min_length=2, max_length=15, description='The state the incident occured in')
     medical_costs: Optional[str] = Field(None, description='The medical costs the claimant incurred')
     incident_description: str = Field(..., min_length=10, max_length=512, description='The claimants quick story of the incident')
+
+    @field_validator('is_injured', 
+               'sought_medical_care',
+               'filed_police_report',
+               'is_insured',
+               'has_witnesses',
+               'has_affordability_concerns',
+               pre=True)
+    def parse_booleans(cls, v):
+        if isinstance(v, str):
+            return v in ['yes', 'true', '1']
+        return v
 
 #Intake Form
 class Intake_Form():
@@ -64,60 +77,60 @@ class Intake_Form():
         self.incident_description = incident_description
         self.medical_costs = medical_costs
 
-    def get_first_name(self):
+    def get_first_name(self) -> str:
         return self.first_name
 
-    def get_last_name(self):
+    def get_last_name(self) -> str:
         return self.last_name
 
-    def get_email(self):
+    def get_email(self) -> str:
         return self.email
     
-    def get_phone(self):
+    def get_phone(self) -> str:
         return self.phone
     
-    def get_accident_type(self):
+    def get_accident_type(self) -> str:
         return self.accident_type
     
-    def get_num_involved_people(self):
+    def get_num_involved_people(self) -> int:
         return self.num_involved_people
     
-    def get_is_injured(self):
+    def get_is_injured(self) -> bool:
         return self.is_injured
     
-    def get_injury_types(self):
+    def get_injury_types(self) -> str:
         return self.injury_types
 
-    def get_sought_medical_care(self):
+    def get_sought_medical_care(self) -> bool:
         return self.sought_medical_care
 
-    def get_filed_police_report(self):
+    def get_filed_police_report(self) -> bool:
         return self.filed_police_report
 
-    def get_is_insured(self):
+    def get_is_insured(self) -> bool:
         return self.is_insured
     
-    def get_insurance_coverage(self):
+    def get_insurance_coverage(self) -> str:
         return self.insurance_coverage
 
-    def get_has_witnesses(self):
+    def get_has_witnesses(self) -> bool:
         return self.has_witnesses 
  
-    def get_incident_date(self):
+    def get_incident_date(self) -> date:
         return self.incident_date
 
-    def get_has_affordability_concerns(self):
+    def get_has_affordability_concerns(self) -> bool:
         return self.has_affordability_concerns
      
-    def get_city(self):
+    def get_city(self) -> str:
         return self.city
      
-    def get_state(self):
+    def get_state(self) -> str:
         return self.state
     
-    def get_incident_description(self):
+    def get_incident_description(self) -> str:
         return self.incident_description
  
-    def get_medical_costs(self):
+    def get_medical_costs(self) -> str:
         return self.medical_costs
     
