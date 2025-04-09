@@ -33,7 +33,5 @@ def run(intake_form: Intake_Form):
                                intake_form.get_phone(),
                                response)
     #Get the Law Firm we matched with the case
-    firm = utils.match_case_with_firm(new_case)
-    utils.send_email()
-
-    
+    matched_firm = utils.match_case_with_firm(new_case)
+    utils.send_email(new_case, matched_firm, "ardalanv4@gmail.com, bing_bing")

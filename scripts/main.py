@@ -15,7 +15,7 @@ def create_intake_form(form: IntakeFormRequest):
     #Creating Intake Form object
     intake_form = utils.make_intake_form(form)
     #Email created from intake form to be sent to law firm
-    email = run(intake_form)
+    run(intake_form)
 
     
     

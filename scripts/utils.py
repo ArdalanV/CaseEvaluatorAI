@@ -10,6 +10,8 @@ from classes.intake_form import Intake_Form, IntakeFormRequest
 import smtplib
 from email.message import EmailMessage
 import requests
+import numpy as np
+import json
 
 #Convert the types for the prompt
 def convert_type(val):
@@ -134,7 +136,7 @@ def format_prompt(intake_form: Intake_Form, prompt_template: str):
     return prompt
 
 #Gets the firm that the case will be send to
-def match_case_with_firm(case: Case):
+def match_case_with_firm(law_firms: dict, case: Case):
     """
     Function to match a case object with a law firm
     
@@ -144,6 +146,17 @@ def match_case_with_firm(case: Case):
     Returns:
         firm (LawFirm): firm object that will get the case referral
     """
+    try:
+        with open(f"../data/firms.json", "r") as file:
+            firms = json.load()
+        firm_matched = np.random.randint(0, len(firms))
+        firm_name = firm_matched["firm_name"]
+        firm_email = firm_matched["email"]
+        firm_locations = firm_matched["locations"]
+        firm_size = firm_matched["size"]
+        return Law_Firm(firm_name, firm_email, firm_locations, firm_size)
+    except FileNotFoundError:
+        print("Could not find law firm data, please query valid law firm data")
     return 
 
 #Makes the local LLM call 

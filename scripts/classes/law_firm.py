@@ -11,7 +11,7 @@ from datetime import date
 #Law Firm object (many more fields to be added later)
 class Law_Firm():
 
-    def __init__(self, email: str, firm_name: str, location: str, size: str):
+    def __init__(self, firm_name: str, email: str, location: str, size: str):
         self.firm_name = firm_name
         self.email = email
         self.location = location
