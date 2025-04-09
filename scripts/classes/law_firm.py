@@ -1,3 +1,7 @@
+"""
+Script for a modular defintion of a Law Firm class
+"""
+
 from typing import List, Optional
 from enum import IntEnum
 from pydantic import BaseModel, Field
@@ -5,7 +9,7 @@ from typing import Optional
 from datetime import date
 
 #Law Firm object (many more fields to be added later)
-class LawFirm():
+class Law_Firm():
 
     def __init__(self, email: str, firm_name: str, location: str, size: str):
         self.email = email

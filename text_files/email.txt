@@ -1,0 +1,11 @@
+Dear {firm_name},
+
+Scalelegal presents a case regarding {first_name} {last_name}. The case is as follows:
+
+{case_description}
+
+With that, you have 1 hour to accept or deny the case. Otherwise it will be 
+referred to another firm.
+
+Best,
+Scalelegal
