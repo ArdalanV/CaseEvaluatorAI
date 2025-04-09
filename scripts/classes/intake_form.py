@@ -29,12 +29,12 @@ class IntakeFormRequest(BaseModel):
     is_insured: bool = Field(..., description='Indicator if the claimant is insured')
     insurance_coverage: str = Field(..., min_length=3, max_length=256, description='Type of insurance coverage the claimant possesses')
     has_witnesses: bool = Field(..., description='Indicator if the claimant has witnesses')
-    incident_date: date = Field(..., 'The date of the incident')
+    incident_date: date = Field(..., description= 'The date of the incident')
     has_affordability_concerns: bool = Field(..., description='Indicator if the claimant has affordability concerns')
     city: str = Field(..., min_length=2, max_length=15, description='The city the incident occured in')
     state: str = Field(..., min_length=2, max_length=15, description='The state the incident occured in')
-    medical_costs: Optional[str] = Field(None, description='The medical costs the claimant incurred')
     incident_description: str = Field(..., min_length=10, max_length=512, description='The claimants quick story of the incident')
+    medical_costs: Optional[str] = Field(None, description='The medical costs the claimant incurred')
 
     @field_validator('is_injured', 
                'sought_medical_care',
@@ -42,10 +42,18 @@ class IntakeFormRequest(BaseModel):
                'is_insured',
                'has_witnesses',
                'has_affordability_concerns',
-               pre=True)
+               mode='before')
+    @classmethod
     def parse_booleans(cls, v):
         if isinstance(v, str):
             return v in ['yes', 'true', '1']
+        return v
+    
+    @field_validator('num_involved_people', mode='before')
+    @classmethod
+    def parse_integers(cls, v):
+        if isinstance(v, str):
+            return int(v)
         return v
 
 #Intake Form

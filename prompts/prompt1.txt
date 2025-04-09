@@ -5,31 +5,31 @@ You will be given the attributes of an intake form:
 
 -{num_involved_people} Number of people involved (excluding claimant).
 
--{injured} Indicates if injuries occurred.
+-{is_injured} Indicates if injuries occurred.
 
 -{injury_types} Types or descriptions of injuries.
 
 -{sought_medical_care} Indicates if medical care was received (Yes or No).
 
--{medical_costs} Total medical costs incurred due to injuries.
-
 -{filed_police_report} Indicates if a police report was filed (Yes or No).
 
--{insured} Indicates if claimant has relevant insurance coverage (Yes or No).
+-{is_insured} Indicates if claimant has relevant insurance coverage (Yes or No).
 
 -{insurance_coverage} The type of insurance coverage the claimant has
 
--{witnesses} Indicates presence of witnesses (Yes or No).
+-{has_witnesses} Indicates presence of witnesses (Yes or No).
 
 -{incident_date} Date of the incident.
 
--{incident_description} Claimant’s narrative description of the incident.
-
--{affordability_concerns} Indicates claimant's financial concerns about costs (Yes or No).
+-{has_affordability_concerns} Indicates claimant's financial concerns about costs (Yes or No).
 
 -{city} City where the incident occurred.
 
 -{state} State where the incident occurred.
+
+-{incident_description} Claimant’s narrative description of the incident.
+
+-{medical_costs} Total medical costs incurred due to injuries.
 
 ### **Your Task:** 
 - **Accurately and precisely summarize the given response from the intake form.**

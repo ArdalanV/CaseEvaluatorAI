@@ -6,10 +6,25 @@ from typing import Optional
 from datetime import date
 from classes import case
 from classes import law_firm    
-from classes import intake_form
+from classes.intake_form import Intake_Form, IntakeFormRequest
 import requests
 
-def make_intake_form(form: intake_form.IntakeFormRequest):
+#Convert the types for the prompt
+def convert_type(val):
+    assert type(val) != str, 'Must pass in a nonstring of type either: bool, date, int, NoneType'
+    #Check if the val is a bool
+    if isinstance(val, bool):
+        return "Yes" if val else "No"
+    #Check if the val is a date
+    if isinstance(val, date):
+        return f"{val.month}/{val.day}/{val.month}"
+    #Check the val is an int
+    if isinstance(val, int):
+        return str(val)
+    #Otherwise it's a NoneType
+    return 'N/A'
+
+def make_intake_form(form: IntakeFormRequest):
     """
     A function for processing the intake form that the user filled out on the 
     web application
@@ -20,8 +35,8 @@ def make_intake_form(form: intake_form.IntakeFormRequest):
     Returns:
         intake (Intake_Form): Returns an intake form
     """
-    intake = intake_form.Intake_Form(**form.model_dump())
-    return intake
+    intake_form = Intake_Form(**form.model_dump())
+    return intake_form
 
 #Loads desired prompt from prompts directory
 def load_prompt(prompt: str):
@@ -43,22 +58,24 @@ def load_prompt(prompt: str):
         print("Prompt was not found, please use valid prompt")
 
 #Formats prompt
-def format_prompt(intake_form: intake_form.Intake_Form, prompt_template: str):
+def format_prompt(intake_form: Intake_Form, prompt_template: str):
+    #Put prompt variables in correct type
     prompt = prompt_template.format(
         accident_type = intake_form.get_accident_type(),
-        involved_people = intake_form.get_num_involved_people(),
-        injured = intake_form.get_is_injured(),
+        num_involved_people = convert_type(intake_form.get_num_involved_people()),
+        is_injured = convert_type(intake_form.get_is_injured()),
         injury_types = intake_form.get_injury_types(),
-        sought_medical_care = intake_form.get_sought_medical_care(),
-        filed_police_report = intake_form.get_filed_police_report,
-        insured = intake_form.get_is_insured(),
+        sought_medical_care = convert_type(intake_form.get_sought_medical_care()),
+        filed_police_report = convert_type(intake_form.get_filed_police_report()),
+        is_insured = convert_type(intake_form.get_is_insured()),
         insurance_coverage = intake_form.get_insurance_coverage(),
-        witnesses = intake_form.has_witnesses(),
-        incident_date = intake_form.get_incident_date(),
-        affordability_costs = intake_form.has_affordability_concerns(),  
+        has_witnesses = convert_type(intake_form.has_witnesses()),
+        incident_date = convert_type(intake_form.get_incident_date()),
+        has_affordability_concerns = convert_type(intake_form.has_affordability_concerns()),  
         city = intake_form.get_city(),
         state = intake_form.get_state(),
-        incident_description = intake_form.get_incident_description()
+        incident_description = intake_form.get_incident_description(),
+        medical_costs = intake_form.get_medical_costs()
         )
     return prompt
 
