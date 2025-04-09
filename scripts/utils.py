@@ -190,7 +190,7 @@ def create_email_body(case: Case, firm: Law_Firm) -> str:
     )        
     return email_body
 
-def send_email(body: str, from_email: str, to_email: str, app_password):
+def send_email(case: Case, law_firm: Law_Firm, from_email: str, app_password):
     """
     Send an email using Gmail SMTP server with an App Password.
 
@@ -200,13 +200,17 @@ def send_email(body: str, from_email: str, to_email: str, app_password):
         to_email (str): Recipient's email address
         from_email (str): Sender's Gmail address
         app_password (str): App password (not your Gmail login password)
+
+    Returns:
+        (None)
     """
+    email_body = create_email_body(case, law_firm)
     msg = EmailMessage()
     msg['Subject'] = "URGENT: Potential New Case"
     #This would be some ScaleLegal email
     msg['From'] = from_email
-    msg['To'] = to_email
-    msg.set_content(body)
+    msg['To'] = law_firm.get_email()
+    msg.set_content(email_body)
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login("ardala", app_password)
@@ -214,5 +218,4 @@ def send_email(body: str, from_email: str, to_email: str, app_password):
             print("✅ Email sent successfully.")
     except Exception as e:
         print(f"❌ Failed to send email: {e}")
-
     
