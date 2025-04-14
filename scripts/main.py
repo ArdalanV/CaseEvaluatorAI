@@ -1,7 +1,7 @@
 """
 API entry point for application
 """
-import utils
+from scripts import utils
 from classes.intake_form import Intake_Form, IntakeFormRequest
 from classes import case, intake_form, law_firm
 from run import run

@@ -4,13 +4,12 @@ Utility functions for the project are defined here
 from pydantic import BaseModel
 from typing import Optional
 from datetime import date
-from classes.case import Case
-from classes.law_firm import Law_Firm  
-from classes.intake_form import Intake_Form, IntakeFormRequest
+from scripts.classes.case import Case
+from scripts.classes.law_firm import Law_Firm  
+from scripts.classes.intake_form import Intake_Form, IntakeFormRequest
 import smtplib
 from email.message import EmailMessage
 import requests
-import numpy as np
 import json
 
 #Convert the types for the prompt

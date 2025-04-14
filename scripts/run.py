@@ -1,7 +1,7 @@
 """
 Main script for running preproccessing and matching of the case
 """
-import utils
+from scripts import utils
 import os
 import openai
 import requests
@@ -27,6 +27,7 @@ def run(intake_form: Intake_Form):
     #Give Ollama the required data and prompt for it's output
     response = utils.summarize_intake_with_LLM(prompt)
     #Creates a new case object
+    print(response)
     new_case = utils.make_case(intake_form.get_first_name(),
                                intake_form.get_last_name(),
                                intake_form.get_email(),
@@ -34,4 +35,4 @@ def run(intake_form: Intake_Form):
                                response)
     #Get the Law Firm we matched with the case
     matched_firm = utils.match_case_with_firm(new_case)
-    utils.send_email(new_case, matched_firm, "ardalanv4@gmail.com, bing_bing")
+    utils.send_email(new_case, matched_firm, "ardalanv4@gmail.com", "bing_bing")
