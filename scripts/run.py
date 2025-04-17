@@ -19,6 +19,7 @@ def first_phase(intake_form: Intake_Form):
     prompt_template = utils.load_prompt("prompt1")
     #Format prompt
     prompt = utils.format_prompt(intake_form, prompt_template)
+    print(prompt)
     #Give Ollama the required data and prompt for it's output
     response = utils.summarize_intake_with_LLM(prompt)
     #Creates a new case object

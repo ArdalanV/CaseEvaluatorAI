@@ -80,7 +80,8 @@ def load_prompt(prompt: str) -> str:
     """
     #try reading the desired prompt
     try:
-        with open(f"../text_files/{prompt}.txt", "r", encoding="utf-8") as file:
+        with open(f"text_files/{prompt}.txt", "r", encoding="utf-8") as file:
+            print("Successfully loaded in prompt")
             return file.read()
     #otherwise return False and kill the program
     except FileNotFoundError:
