@@ -31,6 +31,6 @@ def first_phase(intake_form: Intake_Form):
     #Get the Law Firm we matched with the case
     matched_firm = utils.match_case_with_firm(new_case)
     sender_email = "ardalanv4@gmail.com"
-    app_password = "pyoeperjuwmwhdpa"
+    app_password = "to_be_put_in"
     utils.send_email(new_case, matched_firm, sender_email, app_password)
     return "Check email"
