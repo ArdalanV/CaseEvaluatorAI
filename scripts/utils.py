@@ -11,7 +11,6 @@ import smtplib
 from email.message import EmailMessage
 import ollama
 import numpy as np
-import requests
 import json
 
 #Convert the types for the prompt

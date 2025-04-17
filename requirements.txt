@@ -1,6 +1,8 @@
 fastapi
+pydantic
 uvicorn[standard]=
 openai
 ollama
 requests
 numpy 
+smtplib
