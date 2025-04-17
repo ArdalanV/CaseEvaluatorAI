@@ -19,11 +19,10 @@ def first_phase(intake_form: Intake_Form):
     prompt_template = utils.load_prompt("prompt1")
     #Format prompt
     prompt = utils.format_prompt(intake_form, prompt_template)
-    print(prompt)
     #Give Ollama the required data and prompt for it's output
-    response = utils.summarize_intake_with_LLM(prompt)
+    #response = utils.summarize_intake_with_LLM(prompt) 
+    response = "Place holder response to test program faster"
     #Creates a new case object
-    print(response)
     new_case = utils.make_case(intake_form.get_first_name(),
                                intake_form.get_last_name(),
                                intake_form.get_email(),
@@ -31,4 +30,5 @@ def first_phase(intake_form: Intake_Form):
                                response)
     #Get the Law Firm we matched with the case
     matched_firm = utils.match_case_with_firm(new_case)
+    return matched_firm
     utils.send_email(new_case, matched_firm, "ardalanv4@gmail.com", "bing_bing")

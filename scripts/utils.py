@@ -9,6 +9,7 @@ from scripts.classes.law_firm import Law_Firm
 from scripts.classes.intake_form import Intake_Form, IntakeFormRequest
 import smtplib
 from email.message import EmailMessage
+import ollama
 import numpy as np
 import requests
 import json
@@ -126,9 +127,9 @@ def format_prompt(intake_form: Intake_Form, prompt_template: str):
         filed_police_report = convert_type(intake_form.get_filed_police_report()),
         is_insured = convert_type(intake_form.get_is_insured()),
         insurance_coverage = intake_form.get_insurance_coverage(),
-        has_witnesses = convert_type(intake_form.has_witnesses()),
+        has_witnesses = convert_type(intake_form.get_has_witnesses()),
         incident_date = convert_type(intake_form.get_incident_date()),
-        has_affordability_concerns = convert_type(intake_form.has_affordability_concerns()),  
+        has_affordability_concerns = convert_type(intake_form.get_has_affordability_concerns()),  
         city = intake_form.get_city(),
         state = intake_form.get_state(),
         incident_description = intake_form.get_incident_description(),
@@ -137,7 +138,7 @@ def format_prompt(intake_form: Intake_Form, prompt_template: str):
     return prompt
 
 #Gets the firm that the case will be send to
-def match_case_with_firm(law_firms: dict, case: Case):
+def match_case_with_firm(case: Case):
     """
     Function to match a case object with a law firm
     
@@ -148,9 +149,10 @@ def match_case_with_firm(law_firms: dict, case: Case):
         firm (LawFirm): firm object that will get the case referral
     """
     try:
-        with open(f"../data/firms.json", "r") as file:
-            firms = json.load()
-        firm_matched = np.random.randint(0, len(firms))
+        #running from CaseEvaluatorAI
+        with open(f"data/firms.json", "r") as file:
+            firms = json.load(file)
+        firm_matched = firms[np.random.randint(0, len(firms))]
         firm_name = firm_matched["firm_name"]
         firm_email = firm_matched["email"]
         firm_locations = firm_matched["locations"]
@@ -172,14 +174,9 @@ def summarize_intake_with_LLM(prompt: str) -> str:
         (str) : The LLM summarized case intake form
     """
     try: 
-        response = requests.post( "http://localhost:11434/api/generate",
-            json={
-                "model": "llama3.2",
-                "prompt": prompt,
-                "stream": False,
-                "temperature": 0
-            })
-        return response.json()(["response"])
+        response = ollama.generate('llama3.2', prompt)
+        print('Successfully generated using ollama')
+        return response['response']
     except Exception as e:
         print(f"Request Error from Local Llama model: {e}")
 
