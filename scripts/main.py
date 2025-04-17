@@ -14,10 +14,9 @@ def create_intake_form(form: IntakeFormRequest):
     #Creating Intake Form object
     intake_form = utils.make_intake_form(form)
     #Email created from intake form to be sent to law firm
-    matched_firm = run.first_phase(intake_form)
+    email = run.first_phase(intake_form)
     return {"message": "Form processed successfully", 
-            "intake_form": intake_form,
-            "llm_response": matched_firm}
+            "email": email}
 
     
     

@@ -100,7 +100,8 @@ def load_email() -> str:
         (str) of the email template
      """
     try:
-        with open(f"../text_files/email.txt", "r", encoding="utf-8") as file:
+        with open(f"text_files/email.txt", "r", encoding="utf-8") as file:
+            print("Successfully opened email template")
             return file.read()
     except FileNotFoundError:
         print("Email not found, please get a valid email file")
@@ -208,7 +209,6 @@ def send_email(case: Case, law_firm: Law_Firm, from_email: str, app_password):
     Parameters:
         subject (str): Subject of the email
         body (str): Body of the email (plain text)
-        to_email (str): Recipient's email address
         from_email (str): Sender's Gmail address
         app_password (str): App password (not your Gmail login password)
 
@@ -224,7 +224,7 @@ def send_email(case: Case, law_firm: Law_Firm, from_email: str, app_password):
     msg.set_content(email_body)
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login("ardala", app_password)
+            smtp.login("ardalanv4@gmail.com", app_password)
             smtp.send_message(msg)
             print("✅ Email sent successfully.")
     except Exception as e:
