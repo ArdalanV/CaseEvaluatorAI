@@ -2,9 +2,8 @@
 API entry point for application
 """
 from scripts import utils
-from classes.intake_form import Intake_Form, IntakeFormRequest
-from classes import case, intake_form, law_firm
-from run import run
+from scripts.classes.intake_form import Intake_Form, IntakeFormRequest
+from scripts import run
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -15,7 +14,8 @@ def create_intake_form(form: IntakeFormRequest):
     #Creating Intake Form object
     intake_form = utils.make_intake_form(form)
     #Email created from intake form to be sent to law firm
-    run(intake_form)
+    run.first_phase(intake_form)
+    return {"message": "Form processed successfully"}
 
     
     

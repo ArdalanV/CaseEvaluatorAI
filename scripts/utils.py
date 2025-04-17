@@ -9,6 +9,7 @@ from scripts.classes.law_firm import Law_Firm
 from scripts.classes.intake_form import Intake_Form, IntakeFormRequest
 import smtplib
 from email.message import EmailMessage
+import numpy as np
 import requests
 import json
 

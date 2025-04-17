@@ -2,20 +2,15 @@
 Main script for running preproccessing and matching of the case
 """
 from scripts import utils
-import os
-import openai
-import requests
-import json
-from classes.case import Case
-from classes import law_firm    
-from classes.intake_form import Intake_Form
+import json 
+from scripts.classes.intake_form import Intake_Form
 
 #Simluated Law Firms Database
-with open(f"../data/firms.json") as f:
-    firms = json.loads(f)
+with open(f"data/firms.json") as f:
+    firms = json.load(f)
 
 #Where the program gets systematically executed
-def run(intake_form: Intake_Form):
+def first_phase(intake_form: Intake_Form):
     """
     Main function for processing the form. Uses LLM to take form, put it into a
     summarized description of the case. Create case object, and then start the matching
