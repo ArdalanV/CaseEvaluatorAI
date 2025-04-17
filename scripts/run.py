@@ -20,7 +20,8 @@ def first_phase(intake_form: Intake_Form):
     #Format prompt
     prompt = utils.format_prompt(intake_form, prompt_template)
     #Give Ollama the required data and prompt for it's output
-    response = utils.summarize_intake_with_LLM(prompt) 
+    #response = utils.summarize_intake_with_LLM(prompt) 
+    response = "Filler email for testing email functionality"
     #Creates a new case object
     new_case = utils.make_case(intake_form.get_first_name(),
                                intake_form.get_last_name(),
@@ -29,7 +30,7 @@ def first_phase(intake_form: Intake_Form):
                                response)
     #Get the Law Firm we matched with the case
     matched_firm = utils.match_case_with_firm(new_case)
-    email =  utils.create_email_body(new_case, matched_firm)
-    print(email)
-    return email
-    utils.send_email(new_case, matched_firm, "ardalanv4@gmail.com", "bing_bing")
+    sender_email = "ardalanv4@gmail.com"
+    app_password = "pyoeperjuwmwhdpa"
+    utils.send_email(new_case, matched_firm, sender_email, app_password)
+    return "Check email"

@@ -214,18 +214,25 @@ def send_email(case: Case, law_firm: Law_Firm, from_email: str, app_password):
     Returns:
         (None)
     """
-    email_body = create_email_body(case, law_firm)
+    #Use filler nathan firm
+    nathan_firm = make_nathan_firm()
+    email_body = create_email_body(case, nathan_firm)
     msg = EmailMessage()
     msg['Subject'] = "URGENT: Potential New Case"
     #This would be some ScaleLegal email
     msg['From'] = from_email
-    msg['To'] = law_firm.get_email()
+    #From now send the email to myself, uncomment this line for production implementation
+    #msg['To'] = law_firm.get_email()
+    msg['To'] = 'ardalanv@berkeley.edu'
     msg.set_content(email_body)
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login("ardalanv4@gmail.com", app_password)
+            smtp.login(from_email, app_password)
             smtp.send_message(msg)
             print("✅ Email sent successfully.")
     except Exception as e:
         print(f"❌ Failed to send email: {e}")
-    
+
+#For Nathan demo  
+def make_nathan_firm():
+    return Law_Firm('Big Dawgs @NathanSumekh Incorporated', 'nathan@simplylegal.com', 'Woodland Hills', 'medium')
